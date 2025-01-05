@@ -37,6 +37,7 @@ jobs:
         key: ${{ secrets.EC2_KEY }}
         source: 'frontend/Dreadsite/dist/*'
         target: '/var/www/vueapp/'
+        debug: true
 
   restart:
     needs: build
