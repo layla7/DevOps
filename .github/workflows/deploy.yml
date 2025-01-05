@@ -26,6 +26,9 @@ jobs:
       run: npm run build
       working-directory: frontend/Dreadsite
 
+    - name: List built file
+      run: ls -al frontend/Dreadsite/dist/
+
     - name: Copy files via SCP
       uses: appleboy/scp-action@v0.1.5
       with:
