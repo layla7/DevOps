@@ -4,7 +4,7 @@ import VideoCard from "../components/VideoCard.vue";
 
 <template>
   <div>
-    <h1>Hello World</h1>
+    <h1>Test</h1>
     <div class="d-flex justify-content" style = " overflow: auto; white-space: nowrap;">
       <VideoCard v-for="n in 10" />
     </div>
