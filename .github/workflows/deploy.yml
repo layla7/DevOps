@@ -1,0 +1,50 @@
+name: Deploy Vue.js App to EC2
+
+on:
+  push:
+    branches:
+      - main  # Adjust to your branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+
+    - name: Install Dependencies
+      run: npm install
+      working-directory: frontend  # Adjust to your Vue.js directory
+
+    - name: Build Project
+      run: npm run build
+      working-directory: frontend  # Adjust to your Vue.js directory
+
+    - name: Copy files via SCP
+      uses: appleboy/scp-action@v0.1.5
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USER }}
+        key: ${{ secrets.EC2_KEY }}
+        source: 'frontend/dist/*'
+        target: '/var/www/vueapp/'
+
+  restart:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Restart Nginx
+      uses: appleboy/ssh-action@v0.1.4
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USER }}
+        key: ${{ secrets.EC2_KEY }}
+        script: |
+          sudo systemctl restart nginx
