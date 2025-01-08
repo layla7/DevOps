@@ -32,7 +32,9 @@ app.get("/videos", async(req, res) => {
 
 app.get("/video", async(req, res) => {
     const id = req.query.id;
+    return res.json({"vid_id" : id});
 
+    /**
     const params = {
         TableName : "Videos",
         Key: {
@@ -44,6 +46,7 @@ app.get("/video", async(req, res) => {
     const response = await client.send(getCommand);
     console.log("test")
     return res.send(response.Item);
+    */
 })
 
 
