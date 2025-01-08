@@ -41,7 +41,7 @@ app.get("/video", async(req, res) => {
         }
     };
 
-    const getCommand = GetItemCommand(params);
+    const getCommand = new GetItemCommand(params);
     const response = await client.send(getCommand);
     
     if (!response.Item){
