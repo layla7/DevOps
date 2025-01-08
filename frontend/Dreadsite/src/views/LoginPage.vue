@@ -13,10 +13,10 @@ const message = ref("");
 //console.log(user.username, user.password)
 
 async function submit(){
-    let response = await fetch("https://eoin1o6hx1.execute-api.us-east-1.amazonaws.com/default/user_login",
+    let response = await fetch("https://eg1pt8edmf.execute-api.us-east-1.amazonaws.com/default/user_login",
         {
             method : "POST",
-            body : JSON.stringify({"username" : user, "password" : pw}),
+            body : JSON.stringify({"username" : user.value, "password" : pw.value}),
             headers : {
                 "Content-type" : "application/json; charset=UTF-8"
             }
@@ -54,7 +54,7 @@ async function submit(){
               class="form-control"
               id="username"
               placeholder="Enter your username"
-              v-model = "username"
+              v-model = "user"
             />
           </div>
           <div class="mb-3">
@@ -64,7 +64,7 @@ async function submit(){
               class="form-control"
               id="password"
               placeholder="Enter your password"
-              v-model = "password"
+              v-model = "pw"
             />
           </div>
           <button type="submit" class="btn btn-primary btn-lg w-100">
