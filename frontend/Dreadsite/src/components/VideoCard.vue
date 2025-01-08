@@ -1,12 +1,22 @@
+<script setup>
+const props = defineProps({
+  video: {
+    type: Object,
+    required: true,
+  }
+});
+
+</script>
+
 <template>
 <div class="container mt-5">
     <div class="d-flex justify-content-center">
-        <a href="#" class="video-card">
+        <RouterLink to="/video" class="video-card">
             <div class = "p-2">
-                <img src="https://placehold.co/600x400" alt="Video Thumbnail">
-                <div class="h3">Sample Video Title</div>
+                <img :src="video.video_thumbnail.S" alt="Video Thumbnail">
+                <div class="h3 text-wrap">{{video.video_title.S}}</div>
             </div>
-        </a>
+        </RouterLink>
     </div>
 </div>
 </template>

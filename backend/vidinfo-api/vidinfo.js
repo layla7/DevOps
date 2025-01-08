@@ -43,13 +43,7 @@ app.get("/video", async(req, res) => {
     const getCommand = GetItemCommand(params);
     const response = await client.send(getCommand);
 
-    if (!response.Item){
-        res.sendStatus(401);
-        return;
-    } else {
-        res.send(response.Item);
-        return
-    }
+    return res.send(response.Item);
 })
 
 

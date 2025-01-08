@@ -20,7 +20,9 @@ console.log(store.videos);
   <div>
     <h1>Hi!!!!!</h1>
     <div class="d-flex justify-content" style = " overflow: auto; white-space: nowrap;">
-      <VideoCard v-for="video in store.videos" />
+      <div v-bind:key="video" v-for="video in store.videos">
+        <VideoCard :video = "video"/>
+      </div>
     </div>
   </div>
 </template>
