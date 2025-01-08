@@ -1,4 +1,4 @@
-import { DynamoDBClient, ScanCommand } from "@aws-sdk/client-dynamodb";
+import { DynamoDBClient, ScanCommand, GetItemCommand } from "@aws-sdk/client-dynamodb";
 import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
@@ -28,6 +28,28 @@ app.get("/videos", async(req, res) => {
     const response = await client.send(scanCommand);
 
     res.send(response.Items);
+})
+
+app.get("/video", async(req, res) => {
+    const id = req.query.id;
+
+    const params = {
+        TableName : "Videos",
+        Key: {
+            video_id: id
+        }
+    };
+
+    const getCommand = GetItemCommand(params);
+    const response = await client.send(getCommand);
+
+    if (!response.Item){
+        res.sendStatus(401);
+        return;
+    } else {
+        res.send(response.Item);
+        return
+    }
 })
 
 
