@@ -17,7 +17,7 @@ const router = createRouter({
       component: LoginPage
     },
     {
-      path: '/video',
+      path: '/video/:id',
       name: 'video',
       component: Videopage
     }
