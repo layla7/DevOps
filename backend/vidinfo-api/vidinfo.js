@@ -2,6 +2,7 @@ import { DynamoDBClient, ScanCommand, GetItemCommand } from "@aws-sdk/client-dyn
 import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
+import e from "express";
 
 const client = new DynamoDBClient({ region : "us-east-1" });
 
@@ -32,21 +33,20 @@ app.get("/videos", async(req, res) => {
 
 app.get("/video", async(req, res) => {
     const id = req.query.id;
-    return res.json({"vid_id" : id});
 
-    /**
     const params = {
         TableName : "Videos",
         Key: {
-            video_id: id
+            video_id: { S: id }
         }
     };
 
     const getCommand = GetItemCommand(params);
     const response = await client.send(getCommand);
-    console.log("test")
+    if (!response.Item){
+        return res.sendStatus(401);
+    } 
     return res.send(response.Item);
-    */
 })
 
 
