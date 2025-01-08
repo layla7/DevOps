@@ -23,9 +23,9 @@ app.get("/videos", async(req, res) => {
     }
 
     const scanCommand = new ScanCommand(params);
-    const response = await client.send(scanCommand).Item;
+    const response = await client.send(scanCommand);
 
-    res.send(response);
+    res.send(response.Items);
 })
 
 
