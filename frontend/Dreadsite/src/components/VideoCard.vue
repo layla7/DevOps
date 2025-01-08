@@ -11,7 +11,7 @@ const props = defineProps({
 <template>
 <div class="container mt-5">
     <div class="d-flex justify-content-center">
-        <RouterLink to="/video" class="video-card">
+        <RouterLink :to="'/video/' + video.video_id.S" class="video-card">
             <div class = "p-2">
                 <img :src="video.video_thumbnail.S" alt="Video Thumbnail">
                 <div class="h3 text-wrap">{{video.video_title.S}}</div>

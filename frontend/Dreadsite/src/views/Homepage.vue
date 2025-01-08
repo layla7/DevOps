@@ -12,8 +12,6 @@ const store = useStore();
     store.videos = await videos.json();
   };
 })();
-
-console.log(store.videos);
 </script>
 
 <template>

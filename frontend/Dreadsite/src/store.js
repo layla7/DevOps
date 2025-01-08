@@ -3,10 +3,12 @@ import { ref } from "vue";
 
 export const useStore = defineStore("store", () => {
   const userDetails = ref(null);
-  const videos = ref(null)
+  const videos = ref(null);
+  const video = ref(null);
 
   return {
     userDetails,
-    videos
+    videos,
+    video
   };
 });

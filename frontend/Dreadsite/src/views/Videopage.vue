@@ -4,8 +4,18 @@ import { useRoute } from "vue-router";
 
 const route = useRoute();
 const store = useStore();
-let video = store.videos[route.params.id];
+store.video = null;
+
+(async () => {
+  let video = await fetch(
+    "http://52.91.3.179/video?id=" + route.params.id
+  ); store.video = await video.json();
+})();
+
+console.log(store.video);
+
 </script>
+
 
 <template>
     <div class="container mt-5">
@@ -13,12 +23,12 @@ let video = store.videos[route.params.id];
             <div class="col-md-8">
                 <div class="ratio ratio-16x9 mb-4">
                     <video controls>
-                        <source src="https://d3ocjjcdyw5d62.cloudfront.net/Spectrum.mp4" type="video/mp4">
+                        <source :src="store.video.video_url.S" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
-                <h2 class="mb-3">{{ video.video_title }}</h2>
-                <p class="text-muted">This is the description of the video. Here you can provide additional details about the content, context, or any other relevant information for the viewers.</p>
+                <h2 class="mb-3">{{ store.video.video_title.S }}</h2>
+                <p class="text-muted">{{ store.video.video_description.S }}</p>
             </div>
         </div>
     </div>
