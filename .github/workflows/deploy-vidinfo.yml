@@ -1,0 +1,48 @@
+name: Deploy vidinfo to EC2
+
+on:
+  push:
+    branches:
+      - main  
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+
+    - name: Install SSH Key
+      run: |
+        echo "${{ secrets.EC2_KEY }}" > private_key.pem
+        chmod 600 private_key.pem
+
+
+    - name: Deploy to EC2
+      run: |
+        ssh -o StrictHostKeyChecking=no -i private_key.pem ${{ secrets.VIDINFO_USERNAME }}@${{ secrets.VIDINFO_HOST }} << 'EOF'
+          # Stop any running container
+          docker stop myapp || true
+          docker rm myapp || true
+
+          # Navigate to the deployment directory
+          mkdir -p ~/myapp && cd ~/myapp
+
+          # Pull the latest code from GitHub
+          git pull origin main
+
+          # Build and run the Docker container
+          cd backend/vidinfo-api
+          docker build -t myapp .
+          docker run -d --name myapp -p 80:3000 myapp
+        EOF
+
+
+    - name: Clean up
+      run: rm private_key.pem

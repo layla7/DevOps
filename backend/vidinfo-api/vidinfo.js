@@ -14,7 +14,7 @@ app.use(express.urlencoded());
 const port = process.env.API_PORT || 3000;
 
 app.get("/test", async (req, res) => {
-    res.json({"message" : "Successful"});
+    res.json({"message" : "CI/CD Man!!!!"});
 })
 
 app.get("/videos", async(req, res) => {
