@@ -42,7 +42,7 @@ app.get("/video", async(req, res) => {
 
     const getCommand = GetItemCommand(params);
     const response = await client.send(getCommand);
-
+    console.log("test")
     return res.send(response.Item);
 })
 
