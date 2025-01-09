@@ -26,7 +26,7 @@ jobs:
 
     - name: Deploy to EC2
       run: |
-        ssh -o StrictHostKeyChecking=no -i private_key.pem $ubuntu@${{ secrets.WATCHLIST_HOST }} << 'EOF'
+        ssh -o StrictHostKeyChecking=no -i private_key.pem ubuntu@${{ secrets.WATCHLIST_HOST }} << 'EOF'
           # Stop any running container
           docker stop myapp || true
           docker rm myapp || true
