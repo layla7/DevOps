@@ -2,7 +2,6 @@ import { DynamoDBClient, ScanCommand, GetItemCommand } from "@aws-sdk/client-dyn
 import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
-import e from "express";
 
 const client = new DynamoDBClient({ region : "us-east-1" });
 

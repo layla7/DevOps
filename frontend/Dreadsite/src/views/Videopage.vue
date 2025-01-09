@@ -1,10 +1,15 @@
 <script setup>
 import { useStore } from "@/store";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
+const router = useRouter();
 const store = useStore();
 store.video = null;
+
+if(!store.userDetails.auth){
+  router.push("/login");
+}
 
 (async () => {
   let video = await fetch(

@@ -1,8 +1,14 @@
 <script setup>
 import VideoCard from "../components/VideoCard.vue";
 import { useStore } from "@/store";
+import { useRouter } from "vue-router";
 
 const store = useStore();
+const router = useRouter();
+
+if(!store.userDetails.auth){
+  router.push("/login");
+}
 
 (async () => {
   let videos = await fetch(

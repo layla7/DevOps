@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 
 export const useStore = defineStore("store", () => {
-  const userDetails = ref(null);
+  const userDetails = ref({ auth: false });
   const videos = ref(null);
   const video = ref(null);
 
