@@ -32,7 +32,7 @@ app.get("/watchlist", async (req, res) => {
         return res.sendStatus(404);
     }
 
-    return res.send(response.Item)
+    return res.send(response.Item.watchlist.SS)
 
 })
 
