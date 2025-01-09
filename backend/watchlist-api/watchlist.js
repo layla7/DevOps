@@ -1,4 +1,4 @@
-import { DynamoDBClient, ScanCommand, GetItemCommand } from "@aws-sdk/client-dynamodb";
+import { DynamoDBClient, ScanCommand, GetItemCommand, BatchGetItemCommand, BatchGetItemCommandInput } from "@aws-sdk/client-dynamodb";
 import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
@@ -28,11 +28,26 @@ app.get("/watchlist", async (req, res) => {
     const getCommand = new GetItemCommand(params);
     const response = await client.send(getCommand);
 
-    if (!response.Item) {
-        return res.sendStatus(404);
+    const id_list = response.Item.watchlist.SS;
+    let id_list_formatted = [];
+
+    id_list.forEach(id => {
+        id_list_formatted.push({video_id : { S : id}})
+    });
+
+    const batchParams = {
+        RequestItems : {
+            "Videos" :  {
+                Key : {
+                    video : id_list_formatted
+                }
+            }
+        }
     }
 
-    return res.send(response.Item.watchlist.SS)
+    const batchGetCommand = new BatchGetItemCommand(batchParams);
+
+    res.json({"message" : "working"})
 
 })
 
