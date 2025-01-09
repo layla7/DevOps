@@ -1,4 +1,4 @@
-name: Deploy vidinfo to EC2
+name: Deploy watchlist to EC2
 
 on:
   push:
