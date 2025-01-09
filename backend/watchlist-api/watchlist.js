@@ -19,7 +19,7 @@ app.get("/watchlist", async (req, res) => {
     const user = req.query.userID
 
     const params = {
-        TableName : URLSearchParams,
+        TableName : "Users",
         Key : {
             user_id : {S : user}
         }
