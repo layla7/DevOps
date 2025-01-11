@@ -64,10 +64,9 @@ app.get("/watchlist", async (req, res) => {
 });
 
 app.post("/watchlist", async (req, res) => {
-    const videoID = req.body.video_id;
-    const userID = req.body.user_id;
+  const videoID = req.body.video_id;
+  const userID = req.body.user_id;
   try {
-
     const getParams = {
       TableName: "Users",
       Key: {
@@ -82,7 +81,7 @@ app.post("/watchlist", async (req, res) => {
       return res.status(404).json("user not found");
     }
   } catch (error) {
-    res.status(500).json(error)
+    return res.status(500).json(error);
   }
 
   let putItems = response.Item;
