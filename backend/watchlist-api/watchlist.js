@@ -27,6 +27,10 @@ app.get("/watchlist", async (req, res) => {
 
     const getCommand = new GetItemCommand(params);
     const response = await client.send(getCommand);
+    
+    if (!response.Item.watchlist){
+        return res.status(404);
+    }
 
     const id_list = response.Item.watchlist.SS;
     let id_list_formatted = [];
@@ -46,12 +50,13 @@ app.get("/watchlist", async (req, res) => {
     const batchGetCommand = new BatchGetItemCommand(batchParams);
     const batchResponse = await client.send(batchGetCommand);
 
-    res.json(batchResponse.Responses)
+    return res.json(batchResponse.Responses)
 
 })
 
 app.post("/watchlist", async (req, res) => {
-    
+    const videoID =  req.body.video_id;
+
 })
 
 
