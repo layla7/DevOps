@@ -108,6 +108,7 @@ app.post("/watchlist", async (req, res) => {
         return res.status(500).json(error);
     }
 })
+
 app.delete("/watchlist", async (req, res) => {
     const videoID =  req.body.video_id;
     const userID = req.body.user_id;
