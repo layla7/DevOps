@@ -16,7 +16,7 @@ app.use(express.urlencoded());
 const port = process.env.API_PORT || 3000;
 
 app.get("/watchlist", async (req, res) => {
-    const user = req.query.userID
+    const user = req.query.user_id
 
     const params = {
         TableName : "Users",
@@ -102,7 +102,6 @@ app.post("/watchlist", async (req, res) => {
         await client.send(putCommand);
 
         return res.status(200).json("success!")
-        
     } catch (error) {
         return res.status(500).json(error);
     }
