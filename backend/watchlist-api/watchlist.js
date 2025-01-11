@@ -133,6 +133,7 @@ app.delete("/watchlist", async (req, res) => {
     putItems.watchlist.SS = putItems.watchlist.SS.filter(
       (item) => item !== videoID
     );
+    return res.json(putItems)
     const putParams = {
       TableName: "Users",
       Item: putItems,
