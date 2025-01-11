@@ -27,6 +27,10 @@ app.get("/watchlist", async (req, res) => {
 
     const getCommand = new GetItemCommand(params);
     const response = await client.send(getCommand);
+
+    if(!response.Item){
+        return res.sendStatus(404);
+    }
     
     if (!response.Item.watchlist){
         return res.sendStatus(404);
