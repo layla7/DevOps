@@ -108,6 +108,44 @@ app.post("/watchlist", async (req, res) => {
         return res.status(500).json(error);
     }
 })
+app.delete("/watchlist", async (req, res) => {
+    const videoID =  req.body.video_id;
+    const userID = req.body.user_id;
+
+
+    const getParams = {
+        TableName : "Users",
+        Key : {
+            user_id : {S : userID}
+        }
+    }  
+
+
+    const getCommand = new GetItemCommand(getParams);
+    const response = await client.send(getCommand);  
+
+    if (!response.Item){
+        return res.status(404).json("user not found");
+    }
+
+    let putItems = response.Item;
+
+    try {
+        putItems.watchlist.SS = putItems.watchlist.SS.filter(item => item !== videoID)
+        const putParams = {
+            TableName: "Users",
+            Item: putItems,
+          };
+        
+        const putCommand = new PutItemCommand(putParams);
+        await client.send(putCommand);
+
+        return res.status(200).json("success!")
+    } catch (error) {
+        return res.status(500).json(error);
+    }
+
+})
 
 
 app.listen(port, () => console.log(`Listening on port ${port}...`));
