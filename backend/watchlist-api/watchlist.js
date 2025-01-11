@@ -46,7 +46,7 @@ app.get("/watchlist", async (req, res) => {
     const batchGetCommand = new BatchGetItemCommand(batchParams);
     const batchResponse = await client.send(batchGetCommand);
 
-    res.json({"message" : batchResponse.Responses})
+    res.json(batchResponse.Responses)
 
 })
 
