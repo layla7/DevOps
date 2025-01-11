@@ -78,21 +78,34 @@ app.post("/watchlist", async (req, res) => {
         return res.status(404).json("user not found");
     }
 
-    let putParams = response.Item;
-    
-    if (!putParams.watchlist){
-        putParams.watchlist = {
-            SS : [
-                videoID
-            ]
-        }
-    } else if (!putParams.watchlist.SS.includes(videoID)){
-        putParams.watchlist.SS.push(videoID);
-    } else {
-        return res.status(403).json("Cannot add video to watchlist multiple times");
-    }
+    let putItems = response.Item;
 
-    return res.json(putParams);
+    try {
+        if (!putItems.watchlist){
+            putItems.watchlist = {
+                SS : [
+                    videoID
+                ]
+            }
+        } else if (!putItems.watchlist.SS.includes(videoID)){
+            putItems.watchlist.SS.push(videoID);
+        } else {
+            return res.status(403).json("Cannot add video to watchlist multiple times");
+        }
+    
+        const putParams = {
+            TableName: "Users",
+            Item: putItems,
+          };
+        
+        const putCommand = new PutItemCommand(putParams);
+        await client.send(putCommand);
+
+        return res.status(200).json("success!")
+        
+    } catch (error) {
+        return res.status(500).json(error);
+    }
 })
 
 
