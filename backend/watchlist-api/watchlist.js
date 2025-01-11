@@ -32,17 +32,13 @@ app.get("/watchlist", async (req, res) => {
     let id_list_formatted = [];
 
     id_list.forEach(id => {
-        id_list_formatted.push({video_id : { S : id}})
+        id_list_formatted.push({"video_id" : { S : id}})
     });
-
-    return res.json({"List" : id_list_formatted});
 
     const batchParams = {
         RequestItems : {
             "Videos" :  {
-                Key : {
-                    video : id_list_formatted
-                }
+                Keys : [{"video_id" : {S : "1"}}]
             }
         }
     }
