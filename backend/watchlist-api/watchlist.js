@@ -1,4 +1,4 @@
-import { DynamoDBClient, ScanCommand, GetItemCommand, BatchGetItemCommand, BatchGetItemCommandInput } from "@aws-sdk/client-dynamodb";
+import { DynamoDBClient, ScanCommand, GetItemCommand, BatchGetItemCommand } from "@aws-sdk/client-dynamodb";
 import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
