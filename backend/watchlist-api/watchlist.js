@@ -74,7 +74,13 @@ app.post("/watchlist", async (req, res) => {
     const getCommand = new GetItemCommand(getParams);
     const response = await client.send(getCommand);  
 
-    return res.json({"message" : "success!"});
+    if (!response.Item){
+        return res.status(404).json("user not found");
+    }
+
+    //const post
+
+    return res.json(response.Item);
 })
 
 
