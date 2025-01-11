@@ -38,15 +38,15 @@ app.get("/watchlist", async (req, res) => {
     const batchParams = {
         RequestItems : {
             "Videos" :  {
-                Keys : [{"video_id" : {S : "1"}}]
+                Keys : id_list_formatted
             }
         }
     }
 
     const batchGetCommand = new BatchGetItemCommand(batchParams);
-    const batchResponse = client.send(batchGetCommand);
+    const batchResponse = await client.send(batchGetCommand);
 
-    res.json({"message" : "working"})
+    res.json({"message" : batchResponse.Responses})
 
 })
 
