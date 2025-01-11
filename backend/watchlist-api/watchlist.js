@@ -78,9 +78,19 @@ app.post("/watchlist", async (req, res) => {
         return res.status(404).json("user not found");
     }
 
-    //const post
+    let putParams = response.Item;
+    
+    if (!putParams.watchlist){
+        putParams.watchlist = {
+            SS : [
+                videoID
+            ]
+        }
+    } else {
+        putParams.watchlist.SS.push(videoID)
+    }
 
-    return res.json(response.Item);
+    return res.json(putParams);
 })
 
 
