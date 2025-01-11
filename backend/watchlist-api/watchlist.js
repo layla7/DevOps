@@ -64,15 +64,15 @@ app.post("/watchlist", async (req, res) => {
 
 
     const getParams = {
-        tableName : "Users",
+        TableName : "Users",
         Key : {
             user_id : {S : userID}
         }
     }  
 
-    return res.json(getParams);
-    const get = new GetItemCommand(getParams);
-    const response = await client.send(get);  
+
+    const getCommand = new GetItemCommand(getParams);
+    const response = await client.send(getCommand);  
 
     return res.json({"message" : "success!"});
 })
