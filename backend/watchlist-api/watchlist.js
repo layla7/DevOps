@@ -62,24 +62,17 @@ app.post("/watchlist", async (req, res) => {
     const videoID =  req.body.video_id;
     const userID = req.body.user_id;
 
-    const params = {
+    const getParams = {
         tableName : "Users",
         Key : {
             user_id : {S : userID}
         }
     }  
 
-    const getCommand = new GetItemCommand(params);
-    const response = await client.send(getCommand);  
+    const get = new GetItemCommand(getParams);
+    const response = await client.send(get);  
 
-    if (!response.Item){
-        return res.status(404).json("user not found");
-    }
-
-    res.json(response.Item);
-
-
-
+    return res.json({"message" : "success!"});
 })
 
 
