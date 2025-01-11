@@ -62,6 +62,8 @@ app.post("/watchlist", async (req, res) => {
     const videoID =  req.body.video_id;
     const userID = req.body.user_id;
 
+    return res.json(req.body)
+
     const getParams = {
         tableName : "Users",
         Key : {
