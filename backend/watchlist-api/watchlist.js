@@ -1,4 +1,4 @@
-import { DynamoDBClient, ScanCommand, GetItemCommand, BatchGetItemCommand } from "@aws-sdk/client-dynamodb";
+import { DynamoDBClient, PutItemCommand, GetItemCommand, BatchGetItemCommand } from "@aws-sdk/client-dynamodb";
 import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
@@ -29,11 +29,11 @@ app.get("/watchlist", async (req, res) => {
     const response = await client.send(getCommand);
 
     if(!response.Item){
-        return res.sendStatus(404);
+        return res.status(404).json("user not found");
     }
     
     if (!response.Item.watchlist){
-        return res.sendStatus(404);
+        return res.status(404).json("user watchlist not found");
     }
 
     const id_list = response.Item.watchlist.SS;
@@ -60,6 +60,25 @@ app.get("/watchlist", async (req, res) => {
 
 app.post("/watchlist", async (req, res) => {
     const videoID =  req.body.video_id;
+    const userID = req.body.user_id;
+
+    const params = {
+        tableName : "Users",
+        Key : {
+            user_id : {S : userID}
+        }
+    }  
+
+    const getCommand = new GetItemCommand(params);
+    const response = await client.send(getCommand);  
+
+    if (!response.Item){
+        return res.status(404).json("user not found");
+    }
+
+    res.json(response.Item);
+
+
 
 })
 
