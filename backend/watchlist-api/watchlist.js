@@ -86,8 +86,10 @@ app.post("/watchlist", async (req, res) => {
                 videoID
             ]
         }
+    } else if (!putParams.watchlist.SS.includes(videoID)){
+        putParams.watchlist.SS.push(videoID);
     } else {
-        putParams.watchlist.SS.push(videoID)
+        return res.status(403).json("Cannot add video to watchlist multiple times");
     }
 
     return res.json(putParams);
