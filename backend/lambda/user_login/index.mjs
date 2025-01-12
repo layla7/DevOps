@@ -1,7 +1,7 @@
 import { DynamoDBClient, GetItemCommand} from "@aws-sdk/client-dynamodb";
 import crypto from "crypto";
 
-//Lowrie was here
+//
 
 const client = new DynamoDBClient({ region: "us-east-1" });
 
