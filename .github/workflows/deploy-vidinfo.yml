@@ -16,7 +16,12 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '16'
+        node-version: '22.x'
+
+    - name: Run Tests
+      run: |
+        npm install
+        npx jest
 
     - name: Install SSH Key
       run: |
