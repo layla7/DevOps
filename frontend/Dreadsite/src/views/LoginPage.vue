@@ -11,6 +11,8 @@ const pw = ref("");
 const message = ref("");
 //console.log(user.username, user.password)
 
+store.userDetails.auth = false;
+
 async function submit(){
     let response = await fetch("https://eg1pt8edmf.execute-api.us-east-1.amazonaws.com/default/user_login",
         {

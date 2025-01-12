@@ -1,7 +1,7 @@
 <script setup>
 import VideoCard from "../components/VideoCard.vue";
 import { useStore } from "@/store";
-import { useRouter } from "vue-router";
+import { RouterLink, useRouter } from "vue-router";
 
 const store = useStore();
 const router = useRouter();
@@ -80,6 +80,10 @@ async function minus(video) {
 </script>
 
 <template>
+  <header class = "navbar navbar-expand-lg bd-navbar bg-dark sticky-top">
+    <h1 class = "text-white px-2">Dreadsite</h1>
+    <h5 class = "px-5"><RouterLink to="login">Logout</RouterLink></h5>
+  </header>
   <div>
     <h1>Videos:</h1>
     <div
