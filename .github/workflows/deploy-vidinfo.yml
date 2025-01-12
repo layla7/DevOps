@@ -16,15 +16,23 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '16'
+        node-version: '22.x'
 
+    - name: install & run tests
+      run: |
+        cd backend/vidinfo-api
+        npm install
+        npm test
+      
     - name: Install SSH Key
+      if: success()
       run: |
         echo "${{ secrets.EC2_KEY }}" > private_key.pem
         chmod 600 private_key.pem
 
 
     - name: Deploy to EC2
+      if: success()
       run: |
         ssh -o StrictHostKeyChecking=no -i private_key.pem ${{ secrets.VIDINFO_USERNAME }}@${{ secrets.VIDINFO_HOST }} << 'EOF'
           # Stop any running container
@@ -45,4 +53,5 @@ jobs:
 
 
     - name: Clean up
+      if: success()
       run: rm private_key.pem
