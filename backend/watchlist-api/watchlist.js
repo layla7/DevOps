@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded());
 
-const port = process.env.API_PORT || 5173;
+const port = process.env.API_PORT || 3005;
 
 app.get("/watchlist", async (req, res) => {
   if (!req.query.user_id) return res.status(400).json("Incorrect params");
