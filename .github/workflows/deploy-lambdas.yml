@@ -1,0 +1,41 @@
+name: Deploy AWS Lambda
+
+on:
+  push:
+    branches:
+      - main  # Specify the branch to trigger the deployment
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v3
+      with:
+        aws-access-key-id: ${{ secrets.LAMBDA_ACCESSKEY_ID }}
+        aws-secret-access-key: ${{ secrets.LAMBDA_SECRET_ACCESSKEY }}
+        aws-region: us-east-1
+
+    - name: Install dependencies and zip user login
+      run: |
+        cd backend/lambda/user_login
+        zip -r ../user_login.zip .
+        cd ..
+
+    - name: Deploy Lambda Function 1
+      run: |
+        aws lambda update-function-code --function-name user_login --zip-file fileb://backend/lambda/user_login.zip
+
+    - name: Install dependencies and zip user register
+      run: |
+        cd backend/lambda/user_register
+        zip -r ../user_register.zip .
+        cd ..
+
+    - name: Deploy Lambda Function 2
+      run: |
+        aws lambda update-function-code --function-name user_register --zip-file fileb://backend/lambda/user_register.zip
