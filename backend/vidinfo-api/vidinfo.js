@@ -1,7 +1,7 @@
-import { DynamoDBClient, ScanCommand, GetItemCommand } from "@aws-sdk/client-dynamodb";
-import dotenv from "dotenv";
-import express from "express";
-import cors from "cors";
+const { DynamoDBClient, ScanCommand, GetItemCommand } = require("@aws-sdk/client-dynamodb");
+const dotenv = require("dotenv");
+const express = require("express");
+const cors = require("cors");
 
 const client = new DynamoDBClient({ region : "us-east-1" });
 
@@ -14,10 +14,6 @@ app.use(cors());
 app.use(express.urlencoded());
 
 const port = process.env.API_PORT || 3000;
-
-app.get("/test", async (req, res) => {
-    res.json({"message" : "CI/CD Man!!!!"});
-})
 
 app.get("/videos", async(req, res) => {
     const params = {
@@ -49,6 +45,9 @@ app.get("/video", async(req, res) => {
     return res.send(response.Item);
 })
 
+// Only start the server if the script is run directly
+if (require.main === module) {
+    app.listen(port, () => console.log(`Listening on port ${port}...`));
+}
 
-
-app.listen(port, () => console.log(`Listening on port ${port}...`));
+module.exports = app;  // Export the app for testing

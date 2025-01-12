@@ -1,12 +1,12 @@
-import {
+const {
   DynamoDBClient,
   PutItemCommand,
   GetItemCommand,
   BatchGetItemCommand,
-} from "@aws-sdk/client-dynamodb";
-import dotenv from "dotenv";
-import express from "express";
-import cors from "cors";
+} = require("@aws-sdk/client-dynamodb");
+const dotenv = require("dotenv");
+const express = require("express");
+const cors = require("cors");
 
 const client = new DynamoDBClient({ region: "us-east-1" });
 
@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded());
 
-const port = process.env.API_PORT || 3000;
+const port = process.env.API_PORT || 5173;
 
 app.get("/watchlist", async (req, res) => {
   if (!req.query.user_id) return res.status(400).json("Incorrect params");
@@ -150,4 +150,9 @@ app.delete("/watchlist", async (req, res) => {
   }
 });
 
-app.listen(port, () => console.log(`Listening on port ${port}...`));
+// Only start the server if the script is run directly
+if (require.main === module) {
+  app.listen(port, () => console.log(`Listening on port ${port}...`));
+}
+
+module.exports = app;  // Export the app for testing
