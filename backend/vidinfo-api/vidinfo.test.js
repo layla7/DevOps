@@ -46,7 +46,7 @@ describe("API Tests", () => {
         mockClient.send.mockResolvedValue(mockResponse);
 
         const response = await request(app).get("/video?id=2");
-        expect(response.statusCode).toBe(200);
-        expect(response.body).toEqual({ "error": "something went wrong" });
+        expect(response.statusCode).toBe(404);
+        expect(response.body).toEqual({ "error": "video not found" });
     });
 });

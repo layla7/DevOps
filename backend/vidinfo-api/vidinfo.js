@@ -40,7 +40,7 @@ app.get("/video", async(req, res) => {
     const response = await client.send(getCommand);
     
     if (!response.Item){
-        return res.json({"error" : "something went wrong"})
+        return res.status(404).json({"error" : "video not found"})
     } 
     return res.send(response.Item);
 })
