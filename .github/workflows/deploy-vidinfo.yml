@@ -18,12 +18,12 @@ jobs:
       with:
         node-version: '22.x'
 
-    - name: install dependencies
-      run: npm install
+    - name: install & run tests
+      run: |
+        cd backend/vidinfo-api
+        npm install
+        npm test
       
-    - name: run tests
-      run: npm test
-    
     - name: Install SSH Key
       if: success()
       run: |
