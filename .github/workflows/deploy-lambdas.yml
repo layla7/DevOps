@@ -28,7 +28,7 @@ jobs:
 
     - name: Deploy Lambda Function 1
       run: |
-        aws lambda update-function-code --function-name user_login --zip-file fileb://user_login.zip
+        aws lambda update-function-code --function-name user_login --zip-file fileb://backend/lambda/user_login.zip
 
     - name: Install dependencies and zip user register
       run: |
