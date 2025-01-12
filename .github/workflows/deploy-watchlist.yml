@@ -26,21 +26,21 @@ jobs:
 
     - name: Deploy to EC2
       run: |
-        ssh -o StrictHostKeyChecking=no -i private_key.pem ubuntu@${{ secrets.WATCHLIST_HOST }} << 'EOF'
+        ssh -o StrictHostKeyChecking=no -i private_key.pem ubuntu@${{ secrets.VIDINFO_HOST }} << 'EOF'
           # Stop any running container
           docker stop myapp || true
           docker rm myapp || true
 
           # Navigate to the deployment directory
-          mkdir -p ~/myapp && cd ~/myapp
+          mkdir -p ~/watchlist && cd ~/watchlist
 
           # Pull the latest code from GitHub
           git pull origin main
 
           # Build and run the Docker container
           cd backend/watchlist-api
-          docker build -t myapp .
-          docker run -d --name myapp -p 80:3005 myapp
+          docker build -t watchlist .
+          docker run -d --name watchlist -p 80:3005 watchlist
         EOF
 
 
