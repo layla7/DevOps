@@ -40,7 +40,7 @@ jobs:
           # Build and run the Docker container
           cd backend/watchlist-api
           docker build -t myapp .
-          docker run -d --name myapp -p 80:3000 myapp
+          docker run -d --name myapp -p 80:3005 myapp
         EOF
 
 
