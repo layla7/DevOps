@@ -1,6 +1,8 @@
 import { DynamoDBClient, GetItemCommand} from "@aws-sdk/client-dynamodb";
 import crypto from "crypto";
 
+//Lowrie was here
+
 const client = new DynamoDBClient({ region: "us-east-1" });
 
 //Password hashing and Verification code adapted from https://dev.to/farnabaz/hash-your-passwords-with-scrypt-using-nodejs-crypto-module-316k
