@@ -18,18 +18,21 @@ jobs:
       with:
         node-version: '22.x'
 
-    - name: Run Tests
-      run: |
-        npm install
-        npx jest
-
+    - name: install dependencies
+      run: npm install
+      
+    - name: run tests
+      run: npm test
+    
     - name: Install SSH Key
+      if: success()
       run: |
         echo "${{ secrets.EC2_KEY }}" > private_key.pem
         chmod 600 private_key.pem
 
 
     - name: Deploy to EC2
+      if: success()
       run: |
         ssh -o StrictHostKeyChecking=no -i private_key.pem ${{ secrets.VIDINFO_USERNAME }}@${{ secrets.VIDINFO_HOST }} << 'EOF'
           # Stop any running container
@@ -50,4 +53,5 @@ jobs:
 
 
     - name: Clean up
+      if: success()
       run: rm private_key.pem
