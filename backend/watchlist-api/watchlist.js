@@ -150,6 +150,9 @@ app.delete("/watchlist", async (req, res) => {
   }
 });
 
+app.get("/demo", async (req, res) => {
+  res.json({"message": "CI/CD!!!"})
+});
 
 
 // Only start the server if the script is run directly

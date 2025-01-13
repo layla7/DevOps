@@ -81,7 +81,7 @@ async function minus(video) {
 
 <template>
   <header class = "navbar navbar-expand-lg bd-navbar bg-dark sticky-top">
-    <h1 class = "text-white px-2">Dreadsite</h1>
+    <h1 class = "text-white px-2">Testing!</h1>
     <h5 class = "px-5"><RouterLink to="login">Logout</RouterLink></h5>
   </header>
   <div>
